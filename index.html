@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi CV</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f0f2f5;
+  padding:25px;
+}
+
+.cv-container{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  padding:35px;
+  box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+.cv-header{
+  text-align:center;
+  border-bottom:3px solid black;
+  padding-bottom:15px;
+  margin-bottom:25px;
+}
+
+.cv-header h1{
+  font-size:32px;
+}
+
+.cv-header h2{
+  font-size:18px;
+  color:#555;
+  margin:10px 0;
+}
+
+.cv-contacto{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.cv-body{
+  display:flex;
+  gap:30px;
+}
+
+.cv-sidebar{
+  width:220px;
+}
+
+.cv-main{
+  flex:1;
+}
+
+.cv-foto{
+  width:100%;
+  aspect-ratio:1;
+  background:#ddd;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:20px;
+  overflow:hidden;
+  border-radius:8px;
+}
+
+.cv-foto img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.cv-sidebar h3{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.cv-sidebar p{
+  margin-bottom:6px;
+}
+
+.cv-main section{
+  margin-bottom:30px;
+}
+
+.cv-main h2{
+  border-bottom:1px solid #ccc;
+  padding-bottom:8px;
+  margin-bottom:15px;
+}
+
+.cv-main ul{
+  margin-left:20px;
+}
+
+.cv-main li{
+  margin-bottom:5px;
+}
+
+.btn-descargar{
+  display:block;
+  margin:20px auto;
+  padding:12px 22px;
+  background:#000;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:16px;
+  transition:0.3s;
+}
+
+.btn-descargar:hover{
+  background:#333;
+}
+
+@media (max-width:768px){
+
+  body{
+    padding:10px;
+  }
+
+  .cv-container{
+    padding:20px;
+  }
+
+  .cv-body{
+    flex-direction:column;
+  }
+
+  .cv-sidebar{
+    width:100%;
+  }
+
+  .cv-header h1{
+    font-size:26px;
+  }
+
+  .cv-header h2{
+    font-size:16px;
+  }
+
+  .cv-contacto{
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+  }
+
+  .divisor{
+    display:none;
+  }
+
+  .cv-foto{
+    width:180px;
+    margin:0 auto 20px;
+  }
+
+}
+
+@media print{
+
+  body{
+    background:white;
+    padding:0;
+  }
+
+  .btn-descargar{
+    display:none;
+  }
+
+  .cv-container{
+    max-width:100%;
+    box-shadow:none;
+    margin:0;
+    padding:20px;
+  }
+
+}
+
+</style>
+
+  <script type="text/babel">
+
+    const datosCV = {
+  nombre: "Cristhian Joel Silva Martínez",
+  titulo: "Desarrollador de Software",
+  email: "gloryocnam539@gmail.com",
+  telefono: "0943961730",
+  linkedin: "linkedin.com/in/usuario",
+
+  datosPersonales: {
+    nacimiento: "31/05/2005",
+    direccion: "Daule, Ecuador",
+    estadoCivil: "Soltero"
+  },
+
+  habilidadesInformaticas: [
+    "JavaScript",
+    "React",
+    "Python",
+    "MySQL"
+  ],
+
+  idiomas: [
+    { idioma: "Español", nivel: "Nativo" },
+    { idioma: "Inglés", nivel: "Básico" }
+  ],
+
+  experiencia: [
+    {
+      puesto: "Atención al Cliente",
+      empresa: "KFC.",
+      periodo: "2025",
+      logros: [
+        "Atención al cliente.",
+        "Trabajo en equipo.",
+        "Manejo de caja y pedidos."
+      ]
+    },
+    {
+      titulo: "Desarrollo de Software",
+      periodo: "Actualidad",
+      detalle: "Universidad",
+      logros: [
+        "Apoyo en la planificación de proyectos de TI",
+        "Elaboración de reportes de seguimiento mensual"
+      ]
+    }
+  ],
+
+  formacion: [
+    {
+        titulo: "Tecnología Superior en Desarrollo de Software",
+        periodo: "2024 - Actualidad",
+        detalle: "Instituto Tecnológico Bolivariano (ITB)"
+    },
+    {
+        titulo: "Bachiller",
+        periodo: "2021 - 2023",
+        detalle: "Educación Secundaria"
+    }
+  ],
+
+  certificados: [
+    {
+
+    }
+  ]
+};
+
+function Encabezado({ datos }) {
+  return (
+    <header className="cv-header">
+      <h1>{datos.nombre}</h1>
+      <h2>{datos.titulo}</h2>
+
+      <div className="cv-contacto">
+        <span>✉ {datos.email}</span>
+        <span className="divisor"> | </span>
+        <span>📞 {datos.telefono}</span>
+        <span className="divisor"> | </span>
+        <span>🔗 {datos.linkedin}</span>
+      </div>
+    </header>
+  );
+}
+function Sidebar({ datos }) {
+  return (
+    <aside className="cv-sidebar">
+
+        <div className="cv-foto">
+  <img src="foto.jpg" alt="Foto de perfil" />
+</div>
+
+      <h3>Datos personales</h3>
+      <p>Nacido el {datos.datosPersonales.nacimiento}</p>
+      <p>Dirección: {datos.datosPersonales.direccion}</p>
+      <p>Estado civil: {datos.datosPersonales.estadoCivil}</p>
+
+      <h3>Conocimientos</h3>
+
+      <p><strong>Habilidades informáticas</strong></p>
+      {datos.habilidadesInformaticas.map((h, i) => (
+        <p key={i}>{h}</p>
+      ))}
+
+      <h3>Idiomas</h3>
+      {datos.idiomas.map((item, i) => (
+        <p key={i}>
+          {item.idioma}: {item.nivel}
+        </p>
+      ))}
+
+    </aside>
+  );
+}
+function Experiencia({ lista }) {
+  return (
+    <section>
+      <h2>Experiencia profesional</h2>
+
+      {lista.map((exp, i) => (
+        <div key={i}>
+          <p><strong>{exp.puesto}</strong></p>
+
+          <p>
+            {exp.periodo} | {exp.empresa}
+          </p>
+
+          <ul>
+            {exp.logros.map((logro, j) => (
+              <li key={j}>{logro}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  );
+}
+function Formacion({ lista }) {
+  return (
+    <section>
+      <h2>Formación</h2>
+
+      {lista.map((item, i) => (
+        <div key={i}>
+          <p><strong>{item.titulo}</strong></p>
+
+          <p>
+            {item.periodo} | {item.detalle}
+          </p>
+        </div>
+      ))}
+    </section>
+  );
+}
+function Certificados({ lista }) {
+  return (
+    <section>
+    <h2></h2> 
+
+      {lista.map((item, i) => (
+        <div key={i}>
+          <p><strong>{item.nombre}</strong></p>
+
+          <p>{item.detalle}</p>
+        </div>
+      ))}
+    </section>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <button
+        className="btn-descargar"
+        onClick={() => window.print()}
+      >
+        📄 Descargar como PDF
+      </button>
+
+      <div className="cv-container">
+
+        <Encabezado datos={datosCV} />
+
+        <div className="cv-body">
+
+          <Sidebar datos={datosCV} />
+
+          <main className="cv-main">
+            <Experiencia lista={datosCV.experiencia} />
+
+            <Formacion lista={datosCV.formacion} />
+
+            <Certificados lista={datosCV.certificados} />
+          </main>
+
+        </div>
+
+      </div>
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+  </script>
+
+</body>
+</html>
